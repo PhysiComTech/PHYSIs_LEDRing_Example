@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.physicomtech.kit.physislibrary.PHYSIsBLEActivity;
+import com.physicomtech.kit.physislibrary.ble.BluetoothLEManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,6 +86,11 @@ public class SetupActivity extends PHYSIsBLEActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
+
+        if(!BluetoothLEManager.getInstance(getApplicationContext()).getEnable()){
+            Toast.makeText(getApplicationContext(), "블루투스 활성화 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
         checkPermissions();                 // 앱 권한 체크 함수 호출
         initWidget();                       // 위젯 생성 및 초기화 함수 호출
